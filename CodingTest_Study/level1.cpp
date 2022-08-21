@@ -1,4 +1,4 @@
-#define PROB 34
+#define PROB 36
 
 #if PROB == 1
 // [직사각형 별찍기]
@@ -1144,4 +1144,128 @@ int main()
 */
 
 // SELECT NAME, DATETIME FROM ANIMAL_INS ORDER BY ANIMAL_ID DESC;
+#elif PROB == 35
+// [3진법 뒤집기]
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+int solution(int n)
+{
+	int answer = 0;
+
+	vector<int> vector_numbers{};
+
+	// [Example]
+	// 45(10) → 1200(3)
+	// (1 * 3^3) + (2 * 3^2) + (0 * 3^1) + (0 * 3^0)
+	int number{ n };
+	while (number > 0)
+	{
+		vector_numbers.push_back(number % 3);
+		number /= 3;
+	}
+
+	auto number_pow{ vector_numbers.size() - 1 };
+	for (int n : vector_numbers)
+	{
+		answer += n * pow(3, number_pow);
+		--number_pow;
+	}
+
+	return answer;
+}
+
+int main()
+{
+	solution(45); // result: 7
+	// solution(125) // result: 229
+
+	return 0;
+}
+#elif PROB == 36
+// [실패율]
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> solution(int N, vector<int> stages)
+{
+	vector<int> answer;
+
+	map<int, double> map_stage_challenger{};
+
+	// 1. 각 스테이지 당 도전자 수 초기화
+	for (int i = 1; i <= N; ++i)
+		map_stage_challenger.insert({ i, 0 });
+
+	// 2. 각 스테이지 당 도전에 성공한 사용자 수 증가
+	for (int i = 0; i < stages.size(); ++i)
+		map_stage_challenger[stages[i]]++;
+
+	// 3. 플레이어의 수 설정
+	auto stage_challenger_count{ stages.size() };
+
+	// 4. 각 스테이지 당 도전 실패율 계산
+	for (int i = 1; i <= N; ++i)
+	{
+		if (map_stage_challenger[i] != 0)
+		{
+			// 4-1. 해당 스테이지의 도전자 수
+			int now_satage_challenger_count = static_cast<int>(map_stage_challenger[i]);
+
+			// 4-2. 도전자 수에 따른 스테이지 실패율
+			map_stage_challenger[i] /= stage_challenger_count;
+
+			// 4-3. 다음 스테이지의 도전자 수
+			stage_challenger_count -= now_satage_challenger_count;
+		}
+	}
+
+	// [@] 확인 체크
+	//for (auto& map : map_stage_challenger) cout << "map.first: " << map.first << " / map.second: " << map.second << endl;
+
+	// 5. 정렬을 위한 벡터 설정
+	vector<pair<int, double>> vector_stage_challenger{};
+	vector_stage_challenger.reserve(N);
+	for (int i = 1; i <= N; ++i)
+	{
+		vector_stage_challenger.push_back({ i, map_stage_challenger[i] });
+	}
+
+	// 6. 각 스테이지의 도전자 실패율을 내림차순으로 정렬
+	sort(vector_stage_challenger.begin(), vector_stage_challenger.end(), [](const pair<int, double> &prev, const pair<int, double>& next) 
+		{
+			if (prev.second == next.second)
+				return prev.first < next.first;
+			
+			return prev.second > next.second;
+		});
+
+	// 7. answer(반환 vector)에 결과값 삽입
+	for (auto& challenger : vector_stage_challenger)
+	{
+		answer.push_back(challenger.first);
+	}
+
+	// [@] 확인 체크
+	//cout << "result: "; for (auto& challenger : answer) cout << challenger << " ";
+
+	return answer;
+}
+
+int main()
+{
+	solution(5, { 2, 1, 2, 6, 2, 4, 3, 3 }); // result: [3, 4, 2, 1, 5]
+	//solution(4, { 4, 4, 4, 4, 4 });           // result: [4, 1, 2, 3]
+
+	return 0;
+}
 #endif
