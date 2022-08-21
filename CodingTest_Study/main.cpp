@@ -1,7 +1,7 @@
-#define PROB 5
+#define PROB 6
 
 #if PROB == 1
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+// [해시 테이블]
 // 문제 설명
 // 수많은 마라톤 선수들이 마라톤에 참여하였습니다.단 한 명의 선수를 제외하고는 모든 선수가 마라톤을 완주하였습니다.
 // 
@@ -86,6 +86,7 @@ int main()
 	return 0;
 }
 #elif PROB == 2
+// [해시 테이블]
 // [문제]
 // 스파이들은 매일 다른
 // 서로 다른 옷의 조합의 수를 구하시오.
@@ -136,7 +137,7 @@ int main()
 
 
 #elif PROB == 3
-// 탐욕법(Greedy) - 체육복
+// [탐욕법(Greedy) 알고리즘] - 체육복
 // 탐욕법 알고리즘: 알고리즘의 각 단계에서 그 순간에 최적이라고 생각되는 것을 선택
 // "정해진 순서"에 따라 우선하여 빌려줄 "방향을 설정"해야 한다.
 
@@ -216,7 +217,7 @@ int main()
 }
 
 #elif PROB == 4
-// 그리디 알고리즘 - 큰수 만들기
+// [그리디 알고리즘] - 큰수 만들기
 #include <iostream>
 #include <string>
 
@@ -303,6 +304,44 @@ int main()
 {
 	cout << "[case 1]: " << solution(11, { 4, 11 }, 1) << "\n";  // result: 3
 	cout << "[case 2]: " << solution(16, { 9 }, 2) << "\n";		 // result: 3
+
+	return 0;
+}
+#elif PROB == 6
+// [정렬]
+// 비교: O(N^2) → 너무 오래 걸린다.
+// 정렬: O(N logN)
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+string solution(vector<int> numbers)
+{
+	string answer = "";
+
+	// sort >= O(NlogN)
+	sort(numbers.begin(), numbers.end(), [](const int first, const int second)
+		{
+			string s1 = to_string(first) + to_string(second);
+			string s2 = to_string(second) + to_string(first);
+
+			return s1 > s2;
+		});
+
+	for (const int iter : numbers)
+		answer += to_string(iter);
+
+	// result: 00000000 → 0
+	return answer[0] == '0' ? "0" : answer;
+}
+
+int main()
+{
+	solution({ 3, 30, 34, 5, 9 });
+	// solution({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
 
 	return 0;
 }
