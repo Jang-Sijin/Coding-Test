@@ -1,4 +1,4 @@
-#define PROB 36
+#define PROB 39
 
 #if PROB == 1
 // [직사각형 별찍기]
@@ -1265,6 +1265,61 @@ int main()
 {
 	solution(5, { 2, 1, 2, 6, 2, 4, 3, 3 }); // result: [3, 4, 2, 1, 5]
 	//solution(4, { 4, 4, 4, 4, 4 });           // result: [4, 1, 2, 3]
+
+	return 0;
+}
+#elif PROB == 37
+// [상위 n개 레코드]
+SELECT NAME FROM ANIMAL_INS ORDER BY DATETIME LIMIT 1
+
+#elif PROB == 38
+// [여러 기준으로 정렬하기]
+SELECT ANIMAL_ID, NAME, DATETIME FROM ANIMAL_INS ORDER BY NAME, DATETIME DESC
+
+#elif PROB == 39
+// [1차] 비밀지도
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<string> solution(int n, vector<int> arr1, vector<int> arr2) 
+{
+	vector<string> answer;
+
+	for (int i = 0; i < n; ++i)
+	{
+		int i_binary{ arr1[i] | arr2[i] };
+
+		vector<string> s_binary;
+		while (i_binary > 0)
+		{
+			if (i_binary % 2 == 0)
+			{
+				s_binary.push_back(" ");
+			}
+			else
+			{
+				s_binary.push_back("#");
+			}
+		}
+
+		reverse(s_binary.begin(), s_binary.end());
+
+	}
+
+	for (int i = 0; i < n; ++i)
+		std::cout << answer[i] << "\n";
+
+	return answer;
+}
+
+int main()
+{
+	//solution(5, { 9, 20, 28, 18, 11 }, { 30, 1, 21, 17, 28 }); // result: ["#####", "# # #", "### #", "#  ##", "#####"]
+	solution(6, { 46, 33, 33, 22, 31, 50 }, { 27, 56, 19, 14, 14, 10 }); // result: ["######", "###  #", "##  ##", " #### ", " #####", "### # "]
 
 	return 0;
 }
