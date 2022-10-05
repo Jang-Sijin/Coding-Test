@@ -1,4 +1,4 @@
-#define PROB 39
+#define PROB 46
 
 #if PROB == 1
 // [직사각형 별찍기]
@@ -1277,7 +1277,7 @@ SELECT NAME FROM ANIMAL_INS ORDER BY DATETIME LIMIT 1
 SELECT ANIMAL_ID, NAME, DATETIME FROM ANIMAL_INS ORDER BY NAME, DATETIME DESC
 
 #elif PROB == 39
-// [1차] 비밀지도
+// [1차 비밀지도]
 #include <iostream>
 #include <string>
 #include <vector>
@@ -1320,6 +1320,237 @@ int main()
 {
 	//solution(5, { 9, 20, 28, 18, 11 }, { 30, 1, 21, 17, 28 }); // result: ["#####", "# # #", "### #", "#  ##", "#####"]
 	solution(6, { 46, 33, 33, 22, 31, 50 }, { 27, 56, 19, 14, 14, 10 }); // result: ["######", "###  #", "##  ##", " #### ", " #####", "### # "]
+
+	return 0;
+}
+
+#elif PROB == 40
+// [음양 더하기]
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(vector<int> absolutes, vector<bool> signs)
+{
+	int answer = 0; // 최종 결과는 absolutes(절대 값)의 원본(부호가 있는)들의 합
+	
+	// signs value → true: 양수, false: 음수
+	for (int i = 0; i < absolutes.size(); ++i)
+	{
+		signs[i] ? answer += absolutes[i] : answer -= absolutes[i];
+	}
+
+	std::cout << answer << std::endl;
+	return answer;
+}
+
+int main()
+{
+	solution({ 4,7,12 }, { true,false,true }); // result: 9
+	// solution({ 1,2,3 }, { false,false,true }); // result: 0
+
+	return 0;
+}
+
+#elif PROB == 41
+// [없는 숫자 더하기]
+#include <iostream>
+#include <string>
+#include <vector>
+#define START_NUMBER 1
+#define END_NUMBER 9
+
+using namespace std;
+
+int solution(vector<int> numbers)
+{
+	int answer{ 0 };
+
+	for (int i = START_NUMBER; i <= END_NUMBER; ++i)
+		answer += i;
+
+	for (auto number : numbers)
+		answer -= number;
+
+	//std::cout << answer << std::endl;
+	return answer;
+}
+
+int main()
+{
+	solution({ 1,2,3,4,6,7,8,0 }); // result: 14
+	//solution({ 5,8,4,0,6,7,9 }); // result: 6
+
+	return 0;
+}
+
+#elif PROB == 42
+// [내적]
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(vector<int> a, vector<int> b)
+{
+	int answer{ 0 }; // 내적 결과
+
+	for (int i = 0; i < a.size(); ++i)
+	{
+		answer += a[i] * b[i];
+	}
+
+	//cout << answer << endl;
+	return answer;
+}
+
+int main()
+{
+	solution({ 1,2,3,4 }, { -3,-1,0,2 }); // result: 3
+	solution({ -1,0,1 }, { 1,0,-1 }); // result: -2
+
+	return 0;
+}
+
+#elif PROB == 43
+// [약수의 개수와 덧셈]
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(int left, int right)
+{
+	int answer{ 0 };
+
+	for (int value = left; value <= right; ++value)
+	{
+		int count{ 0 };
+		int sqrt_value = static_cast<int>(sqrt(value));
+		for (int i = 1; i <= sqrt_value; ++i)
+		{
+			if(value % i == 0)
+				count++;
+		}
+
+		if (sqrt(value) == sqrt_value)
+			count = (2 * count) - 1;
+		else
+			count = (2 * count);
+
+		count % 2 == 0 ? answer += value : answer -= value;
+		// cout << value << ", " << count << " : ";
+	}
+	// cout << endl;
+
+	// cout << answer << endl;
+	return answer;
+}
+
+int main()
+{
+	solution(13, 17);
+	
+	return 0;
+}
+
+#elif PROB == 44
+// [같은 숫자는 싫어]
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+vector<int> solution(vector<int> arr)
+{
+	vector<int> answer;
+
+	answer.push_back(arr[0]);
+	for (int i = 1; i < arr.size(); ++i)
+	{
+		if (answer.back() != arr[i])
+			answer.push_back(arr[i]);
+	}
+
+	//for (auto iter : answer)
+	//	cout << iter << " ";
+	//cout << endl;
+
+	return answer;
+}
+
+int main()
+{
+	solution({ 1,1,3,3,0,1,1 }); // result: [1,3,0,1]
+	// solution({ 4,4,4,3,3 }); // result: [4,3]
+
+	return 0;
+}
+#elif PROB == 45
+// [예산]
+#include <iostream>
+#include <stdio.h>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<int> d, int budget) 
+{
+	int answer = 0;
+
+	sort(d.begin(), d.end());
+
+	for (auto iter = d.begin(); iter < d.end(); ++iter)
+	{
+		if (0 <= budget - *iter)
+		{
+			budget -= *iter;
+			answer++;
+		}
+		else
+			break;
+	}
+
+	return answer;
+}
+
+int main()
+{
+	solution({ 1, 3, 2, 5, 4 }, 9); // result: 3
+	// solution({ 2, 2, 3, 3 }, 10); // result: 4
+
+	return 0;
+}
+
+#elif PROB == 46
+// [최소직사각형]
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<vector<int>> sizes)
+{
+	int answer = 0;
+
+	sort(sizes.begin(), sizes.end(), [](vector<int> &first, vector<int> &second)
+		{
+			if(first)
+		});
+
+	return answer;
+}
+
+int main()
+{
+	solution({ {60, 50 }, { 30, 70 }, { 60, 30 }, { 80, 40 } }); // result: 4000
 
 	return 0;
 }
