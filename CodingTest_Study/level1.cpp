@@ -1,4 +1,4 @@
-#define PROB 46
+#define PROB 48
 
 #if PROB == 1
 // [직사각형 별찍기]
@@ -645,14 +645,14 @@ int main()
 
 using namespace std;
 
-int solution(int n) 
+int solution(int n)
 {
 	int answer = 0;
 
 	for (int i = 1; i <= n; ++i)
 	{
 		if (n % i == 0)
-			answer += i;		
+			answer += i;
 	}
 
 	cout << answer;
@@ -673,11 +673,11 @@ int main()
 
 using namespace std;
 
-int solution(string s) 
+int solution(string s)
 {
 	int answer = 0;
 
-	if(s[0] == '-' || s[0] == '+')
+	if (s[0] == '-' || s[0] == '+')
 		answer = stoi(s.substr(1, s.length()));
 	else
 		answer = stoi(s.substr(0, s.length()));
@@ -703,7 +703,7 @@ int main()
 
 using namespace std;
 
-int solution(int n) 
+int solution(int n)
 {
 	// case input n == 2 → default answer value = 1
 	int answer = 1;
@@ -826,7 +826,7 @@ long long solution(int a, int b)
 	int max_value{};
 
 	a > b ? (max_value = a, min_value = b) : (max_value = b, min_value = a);
-	
+
 	for (int i = min_value; i <= max_value; ++i)
 	{
 		answer += i;
@@ -1018,7 +1018,7 @@ int main()
 
 using namespace std;
 
-int solution(int n) 
+int solution(int n)
 {
 	for (int answer = 2; answer <= 1000000; ++answer)
 	{
@@ -1241,11 +1241,11 @@ vector<int> solution(int N, vector<int> stages)
 	}
 
 	// 6. 각 스테이지의 도전자 실패율을 내림차순으로 정렬
-	sort(vector_stage_challenger.begin(), vector_stage_challenger.end(), [](const pair<int, double> &prev, const pair<int, double>& next) 
+	sort(vector_stage_challenger.begin(), vector_stage_challenger.end(), [](const pair<int, double>& prev, const pair<int, double>& next)
 		{
 			if (prev.second == next.second)
 				return prev.first < next.first;
-			
+
 			return prev.second > next.second;
 		});
 
@@ -1285,7 +1285,7 @@ SELECT ANIMAL_ID, NAME, DATETIME FROM ANIMAL_INS ORDER BY NAME, DATETIME DESC
 
 using namespace std;
 
-vector<string> solution(int n, vector<int> arr1, vector<int> arr2) 
+vector<string> solution(int n, vector<int> arr1, vector<int> arr2)
 {
 	vector<string> answer;
 
@@ -1335,7 +1335,7 @@ using namespace std;
 int solution(vector<int> absolutes, vector<bool> signs)
 {
 	int answer = 0; // 최종 결과는 absolutes(절대 값)의 원본(부호가 있는)들의 합
-	
+
 	// signs value → true: 양수, false: 음수
 	for (int i = 0; i < absolutes.size(); ++i)
 	{
@@ -1433,7 +1433,7 @@ int solution(int left, int right)
 		int sqrt_value = static_cast<int>(sqrt(value));
 		for (int i = 1; i <= sqrt_value; ++i)
 		{
-			if(value % i == 0)
+			if (value % i == 0)
 				count++;
 		}
 
@@ -1454,7 +1454,7 @@ int solution(int left, int right)
 int main()
 {
 	solution(13, 17);
-	
+
 	return 0;
 }
 
@@ -1500,7 +1500,7 @@ int main()
 
 using namespace std;
 
-int solution(vector<int> d, int budget) 
+int solution(vector<int> d, int budget)
 {
 	int answer = 0;
 
@@ -1530,9 +1530,11 @@ int main()
 
 #elif PROB == 46
 // [최소직사각형]
+// 명함 중 긴 부분과 짧은 부분의 위치를 고정해야 된다.
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -1540,12 +1542,38 @@ int solution(vector<vector<int>> sizes)
 {
 	int answer = 0;
 
-	sort(sizes.begin(), sizes.end(), [](vector<int> &first, vector<int> &second)
-		{
-			if(first)
-		});
+	// 정렬
+	for (int i = 0; i < sizes.size(); ++i)
+	{
+		sort(sizes[i].begin(), sizes[i].end(), [](int first, int second)
+			{
+				return first > second;
+			});
+	}
 
-	return answer;
+	// min, max 추출
+	int max[2]{ sizes[0][0], sizes[0][1] };
+	for (int i = 1; i < sizes.size(); ++i)
+	{
+		if (max[0] < sizes[i][0])
+			max[0] = sizes[i][0];
+
+		if (max[1] < sizes[i][1])
+			max[1] = sizes[i][1];
+	}
+
+	for (int i = 0; i < sizes.size(); ++i)
+	{
+		for (int j = 0; j < sizes[i].size(); ++j)
+		{
+			cout << sizes[i][j] << ' ';
+		}
+		cout << endl;
+	}
+
+	answer = (max[0] * max[1]);
+	cout << max[0] << ", " << max[1] << endl;
+	return answer = (max[0] * max[1]);
 }
 
 int main()
@@ -1554,4 +1582,93 @@ int main()
 
 	return 0;
 }
+#elif PROB == 47
+// [k번째수]
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+using namespace std;
+
+vector<int> solution(vector<int> array, vector<vector<int>> commands)
+{
+	vector<int> answer;
+	answer.reserve(commands.size());
+
+	for (int i = 0; i < commands.size(); ++i)
+	{
+		vector<int> sorted;
+		sorted.reserve(commands[i].size());
+
+		for (int j = commands[i][0] - 1; j < commands[i][1]; ++j)
+		{
+			sorted.push_back(array[j]);
+		}
+
+		sort(sorted.begin(), sorted.end());
+
+		answer.push_back(sorted[commands[i][2] - 1]);
+	}
+
+	return answer;
+}
+
+int main()
+{
+	solution({ 1, 5, 2, 6, 3, 7, 4 }, { {2, 5, 3 }, { 4, 4, 1 }, { 1, 7, 3 } });
+
+	return 0;
+}
+#elif PROB == 48
+// [숫자 문자열과 영단어]
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(string s)
+{
+	int answer = 0;
+
+	string number_str[10] =
+	{
+		"zero",
+		"one",
+		"two",
+		"three",
+		"four",
+		"five",
+		"six",
+		"seven",
+		"eight",
+		"nine"
+	};
+
+	string answer_string;
+
+	for (int i = 0; i < s.size(); ++i)
+	{
+		if (isdigit(s[i]))
+		{
+
+		}
+		else
+		{
+		}
+	}
+
+	return answer;
+}
+
+int main()
+{
+	solution("one4seveneight");
+	//solution("23four5six7");
+	//solution("2three45sixseven");
+	//solution("123");
+
+	return 0;
+}
+
 #endif
