@@ -1631,7 +1631,7 @@ int solution(string s)
 {
 	int answer = 0;
 
-	string number_str[10] =
+	string number_str[10]
 	{
 		"zero",
 		"one",
@@ -1646,29 +1646,48 @@ int solution(string s)
 	};
 
 	string answer_string;
-
-	for (int i = 0; i < s.size(); ++i)
+	for (int i = 0; i < s.size();)
 	{
-		if (isdigit(s[i]))
+		// 1. 숫자일 경우
+		if (isdigit(s[0]))
 		{
+			// 1-2. 숫자를 string 형태로 answer_string에 추가한다.
+			answer_string += s[0];
 
+			// 1.3. 따로 빼둔 숫자를 s에서 제외한다.
+			s = s.substr(1, s.size());
 		}
+		// 2. 숫자가 영어단어일 경우
 		else
-		{
+		{	
+			// 2-1. number_str를 순회하면서 s[0]부터 s[number_str[j].size()]까지를 비교하며 같은 숫자를 찾는다.
+			for (int j = 0; j < 10; ++j)
+			{				
+				if (number_str[j] == s.substr(0, number_str[j].size()))
+				{
+					// 2-2. 숫자를 string 형태로 answer_string에 추가한다.
+					answer_string += to_string(j);
+
+					// 2-3. 따로 빼둔 숫자를 s에서 제외한다.
+					s = s.substr(number_str[j].size(), s.size());
+
+					// 2-4. 반복 스킵.
+					break;
+				}
+			}
 		}
 	}
 
-	return answer;
+	return answer = stoi(answer_string);;
 }
 
 int main()
 {
-	solution("one4seveneight");
+	//solution("one4seveneight");
 	//solution("23four5six7");
-	//solution("2three45sixseven");
+	solution("2three45sixseven");
 	//solution("123");
 
 	return 0;
 }
-
 #endif
