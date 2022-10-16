@@ -1,4 +1,4 @@
-#define PROB 48
+#define PROB 53
 
 #if PROB == 1
 // [직사각형 별찍기]
@@ -1659,10 +1659,10 @@ int solution(string s)
 		}
 		// 2. 숫자가 영어단어일 경우
 		else
-		{	
+		{
 			// 2-1. number_str를 순회하면서 s[0]부터 s[number_str[j].size()]까지를 비교하며 같은 숫자를 찾는다.
 			for (int j = 0; j < 10; ++j)
-			{				
+			{
 				if (number_str[j] == s.substr(0, number_str[j].size()))
 				{
 					// 2-2. 숫자를 string 형태로 answer_string에 추가한다.
@@ -1687,6 +1687,212 @@ int main()
 	//solution("23four5six7");
 	solution("2three45sixseven");
 	//solution("123");
+
+	return 0;
+}
+#elif PROB == 49
+// [폰켓몬]
+#include <vector>
+#include <set>
+#include <iostream>
+
+using namespace std;
+
+int solution(vector<int> nums)
+{
+	int answer = 0;
+
+	set<int> set_nums{ nums.begin(), nums.end() };
+	auto choose_size{ nums.size() / 2 };
+	cout << choose_size << " ";
+
+	if (set_nums.size() >= choose_size)
+		answer = choose_size;
+	else
+		answer = set_nums.size();
+
+	return answer;
+}
+
+int main()
+{
+	solution({ 3, 1, 2, 3 });
+	solution({ 3, 3, 3, 2, 2, 4 });
+	solution({ 3, 3, 3, 2, 2, 2 });
+
+	return 0;
+}
+#elif PROB == 50
+// [모의고사]
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> solution(vector<int> answers)
+{
+	vector<int> answer;
+
+	vector<vector<int>> students{ {1,2,3,4,5}, {2,1,2,3,2,4,2,5}, {3,3,1,1,2,2,4,4,5,5} };
+	vector<int> students_count{ 0,0,0 };
+
+	for (int i = 0; i < answers.size(); ++i)
+	{
+		if (answers[i] == students[0][i % students[0].size()])
+			students_count[0]++;
+
+		if (answers[i] == students[1][i % students[0].size()])
+			students_count[1]++;
+
+		if (answers[i] == students[2][i % students[0].size()])
+			students_count[2]++;
+	}
+
+	int max_count{ *max_element(students_count.begin(), students_count.end()) };
+
+	for (int i = 0; i < 3; ++i)
+		if (max_count == students_count[i])
+			answer.push_back(i + 1);
+
+	return answer;
+}
+
+int main()
+{
+	solution({ 1,2,3,4,5 }); // result: [1]
+	// solution({ 1,3,2,4,2 }); // result: [1,2,3]
+
+	return 0;
+}
+#elif PROB == 51
+// [삼총사]
+#include <string>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+int solution(vector<int> number)
+{
+	int answer = 0;
+
+	// 경우의 수
+	for (int i = 0; i < number.size() - 2; ++i)
+	{
+		for (int j = i + 1; j < number.size() - 1; ++j)
+		{
+			for (int k = j + 1; k < number.size(); ++k)
+			{
+				if (number[i] + number[j] + number[k] == 0)
+					++answer;
+			}
+		}
+	}
+
+	cout << answer << endl;
+	return answer;
+}
+
+int main()
+{
+	solution({ -2, 3, 0, 2, -5 }); // result: 2
+	solution({ -3, -2, -1, 0, 1, 2, 3 }); // result: 5
+	solution({ -1, 1, -1, 1 }); // result: 0
+
+	return 0;
+}
+#elif PROB == 52
+// [로또의 최고 순위와 최저 순위]
+
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> solution(vector<int> lottos, vector<int> win_nums) 
+{
+	vector<int> answer;
+
+	// [Best Rank]
+	answer.push_back(count(lottos.begin(), lottos.end(), 0));
+	// [Worst Rank]
+	answer.push_back(0);
+
+	for (int i = 0; i < win_nums.size(); ++i)
+	{
+		// match lottos numbers
+		if (find(win_nums.begin(), win_nums.end(), lottos[i]) != win_nums.end())
+		{
+			answer[0] += 1;
+			answer[1] += 1;
+		}
+	}
+
+	// i == 0 → Best Rank
+	// i == 1 → Worst Rank
+	for (int i = 0; i < 2; ++i)
+	{
+		switch (answer[i])
+		{
+		case 6:
+			answer[i] = 1;
+			break;
+		case 5:
+			answer[i] = 2;
+			break;
+		case 4:
+			answer[i] = 3;
+			break;
+		case 3:
+			answer[i] = 4;
+			break;
+		case 2:
+			answer[i] = 5;
+			break;
+		default:
+			answer[i] = 6;
+			break;
+		}
+	}
+
+	return answer;
+}
+
+int main()
+{
+	solution({ 44, 1, 0, 0, 31, 25 }, { 31, 10, 45, 1, 6, 19 }); // result: [3, 5]
+	solution({ 0, 0, 0, 0, 0, 0 }, { 38, 19, 20, 40, 15, 25 });  // result: [1, 6]
+	solution({ 45, 4, 35, 20, 3, 9 }, { 20, 9, 3, 45, 4, 35 });  // result: [1, 1]
+
+	return 0;
+}
+#elif PROB == 53
+#include <string>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+int solution(int n, vector<int> lost, vector<int> reserve) 
+{
+	int answer = 0;
+
+	unordered_map<int, int> students;
+
+	for (int i = 0; i < n; ++i)
+	{
+		students.insert(i, 0);
+	}
+
+	return answer;
+}
+
+int main()
+{
+	solution(5, { 2, 4 }, { 1, 3, 5 }); // result: 5
+	solution(5, { 2, 4 }, { 3 }); // result: 4
 
 	return 0;
 }
