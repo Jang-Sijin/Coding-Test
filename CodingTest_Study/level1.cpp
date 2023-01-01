@@ -1,4 +1,4 @@
-#define PROB 53
+#define PROB 54
 
 #if PROB == 1
 // [직사각형 별찍기]
@@ -1869,31 +1869,9 @@ int main()
 	return 0;
 }
 #elif PROB == 53
-#include <string>
-#include <vector>
-#include <unordered_map>
+// [강원도에 위치한 생산공장 목록 출력하기]
+SELECT FACTORY_ID, FACTORY_NAME, ADDRESS FROM FOOD_FACTORY WHERE ADDRESS LIKE '강원도%' ORDER BY FACTORY_ID ASC
 
-using namespace std;
+#elif PROB == 54
 
-int solution(int n, vector<int> lost, vector<int> reserve) 
-{
-	int answer = 0;
-
-	unordered_map<int, int> students;
-
-	for (int i = 0; i < n; ++i)
-	{
-		students.insert(i, 0);
-	}
-
-	return answer;
-}
-
-int main()
-{
-	solution(5, { 2, 4 }, { 1, 3, 5 }); // result: 5
-	solution(5, { 2, 4 }, { 3 }); // result: 4
-
-	return 0;
-}
 #endif
