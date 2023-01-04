@@ -1,4 +1,4 @@
-#define PROB 54
+#define PROB 58
 
 #if PROB == 1
 // [직사각형 별찍기]
@@ -1804,7 +1804,6 @@ int main()
 }
 #elif PROB == 52
 // [로또의 최고 순위와 최저 순위]
-
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -1870,8 +1869,40 @@ int main()
 }
 #elif PROB == 53
 // [강원도에 위치한 생산공장 목록 출력하기]
-SELECT FACTORY_ID, FACTORY_NAME, ADDRESS FROM FOOD_FACTORY WHERE ADDRESS LIKE '강원도%' ORDER BY FACTORY_ID ASC
+SELECT FACTORY_ID, FACTORY_NAME, ADDRESS 
+FROM FOOD_FACTORY 
+WHERE ADDRESS LIKE '강원도%' 
+ORDER BY FACTORY_ID ASC
 
 #elif PROB == 54
+// [나이 정보가 없는 회원 수 구하기]
+SELECT COUNT(*) AS 'USERS' 
+FROM USER_INFO 
+WHERE AGE IS NULL
+
+#elif PROB == 55
+// [경기도에 위치한 식품창고 목록 출력하기]
+SELECT WAREHOUSE_ID, WAREHOUSE_NAME, ADDRESS, IF(FREEZER_YN IS NULL, 'N', FREEZER_YN) 
+FROM FOOD_WAREHOUSE 
+WHERE ADDRESS LIKE '경기도%' 
+ORDER BY WAREHOUSE_ID ASC
+
+#elif PROB == 56
+// [조건에 맞는 회원수 구하기]
+SELECT COUNT(*) AS 'USERS' 
+FROM USER_INFO 
+WHERE YEAR(JOINED) = 2021 AND AGE >= 20 AND AGE <= 29
+
+#elif PROB == 57
+// [가장 비싼 상품 구하기]
+SELECT MAX(PRICE) AS 'MAX_PRICE' 
+FROM PRODUCT
+
+#elif PROB == 58
+// [흉부외과 또는 일반외과 의사 목록 출력하기]
+SELECT DR_NAME, DR_ID, MCDP_CD, DATE_FORMAT(HIRE_YMD, '%Y-%m-%d')
+FROM DOCTOR
+WHERE MCDP_CD = 'CS' OR MCDP_CD = 'GS'
+ORDER BY HIRE_YMD DESC, DR_NAME ASC
 
 #endif
