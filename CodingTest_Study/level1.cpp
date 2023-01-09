@@ -1,4 +1,4 @@
-#define PROB 62
+#define PROB 17
 
 #if PROB == 1
 // [직사각형 별찍기]
@@ -517,34 +517,29 @@ using namespace std;
 vector<int> solution(int n, int m)
 {
 	vector<int> answer;
-
-	int length{};
-	n < m ? length = n : length = m;
-
+	// n, m 값 중 작은 값을 min_value에 대입한다.
+	int min_value{ n < m ? min_value = n : min_value = m};
+	// 최대 공약수 변수
 	int greatest_common_factor{ 1 };
+	// 최소 공배수 변수
 	int least_common_multiple{ 1 };
 
-	int temp{};
-	while (true)
-	{
-		if (n % m != 0)
-		{
-			temp = n % m;
-			n = m;
-			m = temp;
-		}
 
-		if (temp == 0 || n == 0)
-		{
-			n == 0 ? answer.push_back(temp) : answer.push_back(n);
-			break;
-		}
-	}
-
-	for (auto i : answer)
+	int great_temp_value{ 1 };
+	while (great_temp_value <= min_value)
 	{
-		cout << i << ' ';
+		if (n % great_temp_value == 0 && m % great_temp_value == 0)
+		{
+			greatest_common_factor = great_temp_value;
+		}
+		++great_temp_value;
 	}
+	answer.push_back(greatest_common_factor);
+
+	least_common_multiple = (n * m / greatest_common_factor);
+	answer.push_back(least_common_multiple);
+
+	// cout << greatest_common_factor << ", " << least_common_multiple;
 
 	return answer;
 }
@@ -552,7 +547,7 @@ vector<int> solution(int n, int m)
 int main()
 {
 	// solution(3, 12); // result: [3, 12]
-	solution(2, 5); // result: [1, 10]
+	// solution(2, 5); // result: [1, 10]
 
 	return 0;
 }
