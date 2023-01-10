@@ -1,4 +1,4 @@
-#define PROB 17
+#define PROB 74
 
 #if PROB == 1
 // [직사각형 별찍기]
@@ -507,7 +507,7 @@ int main()
 	return 0;
 }
 #elif PROB == 17
-// [최대공약수와 최소공배수] - 해결 x
+// [최대공약수와 최소공배수]
 #include <iostream>
 #include <string>
 #include <vector>
@@ -691,9 +691,8 @@ int main()
 	return 0;
 }
 #elif PROB == 23
-// [소수 찾기] - 해결 x
+// [소수 찾기]
 #include <iostream>
-#include <string>
 #include <vector>
 
 using namespace std;
@@ -701,33 +700,29 @@ using namespace std;
 int solution(int n)
 {
 	// case input n == 2 → default answer value = 1
-	int answer = 1;
+	vector<bool> check_decimal(n + 1, true);	
+	int answer = 0;
 
 	for (int i = 2; i <= n; ++i)
 	{
-		bool is_true{ false };
-		int count{ 0 };
-		for (int j = 2; j < i; ++j)
+		if (check_decimal[i] == true)
 		{
-			if (i % j == 0)
-				break;
+			for (int j = 2; j * i <= n; ++j)
+			{
+				check_decimal[j * i] = false;
+			}
 
-			if (j == i - 1)
-				is_true = true;
-		}
-
-		if (is_true)
 			answer++;
+		}
 	}
 
-	cout << answer;
 	return answer;
 }
 
 int main()
 {
-	solution(10); // result: 4
-	// solution(5); // result: 3
+	// solution(10); // result: 4
+	solution(5); // result: 3
 
 	return 0;
 }
@@ -1137,8 +1132,10 @@ int main()
 2. 동물 보호소에 들어온 모든
 3. 결과는 ANIMAL_ID && 4. 역순으로 보여주세요.
 */
+SELECT NAME, DATETIME 
+FROM ANIMAL_INS 
+ORDER BY ANIMAL_ID DESC;
 
-// SELECT NAME, DATETIME FROM ANIMAL_INS ORDER BY ANIMAL_ID DESC;
 #elif PROB == 35
 // [3진법 뒤집기]
 #include <iostream>
@@ -1280,40 +1277,41 @@ SELECT ANIMAL_ID, NAME, DATETIME FROM ANIMAL_INS ORDER BY NAME, DATETIME DESC
 
 using namespace std;
 
+string to_binary(int n, int common_value)
+{
+	string s_binary = "";
+
+	for(int i = n; i > 0; --i)
+	{
+		if (common_value % 2 == 1)
+			s_binary = '#' + s_binary;
+		else
+			s_binary = ' ' + s_binary;
+
+		common_value = common_value >> 1;	
+	}
+
+	return s_binary;
+}
+
 vector<string> solution(int n, vector<int> arr1, vector<int> arr2)
 {
 	vector<string> answer;
 
 	for (int i = 0; i < n; ++i)
 	{
-		int i_binary{ arr1[i] | arr2[i] };
+		string result_int{ to_binary(n, arr1[i] | arr2[i]) };
 
-		vector<string> s_binary;
-		while (i_binary > 0)
-		{
-			if (i_binary % 2 == 0)
-			{
-				s_binary.push_back(" ");
-			}
-			else
-			{
-				s_binary.push_back("#");
-			}
-		}
-
-		reverse(s_binary.begin(), s_binary.end());
-
+		answer.push_back(result_int);
+		cout << result_int << endl;
 	}
-
-	for (int i = 0; i < n; ++i)
-		std::cout << answer[i] << "\n";
 
 	return answer;
 }
 
 int main()
 {
-	//solution(5, { 9, 20, 28, 18, 11 }, { 30, 1, 21, 17, 28 }); // result: ["#####", "# # #", "### #", "#  ##", "#####"]
+	// solution(5, { 9, 20, 28, 18, 11 }, { 30, 1, 21, 17, 28 }); // result: ["#####", "# # #", "### #", "#  ##", "#####"]
 	solution(6, { 46, 33, 33, 22, 31, 50 }, { 27, 56, 19, 14, 14, 10 }); // result: ["######", "###  #", "##  ##", " #### ", " #####", "### # "]
 
 	return 0;
@@ -1926,4 +1924,259 @@ SELECT BOOK_ID, DATE_FORMAT(PUBLISHED_DATE, '%Y-%m-%d') as PUBLISHED_DATE
 FROM BOOK
 WHERE CATEGORY = '인문' AND YEAR(PUBLISHED_DATE) = '2021'
 ORDER BY PUBLISHED_DATE ASC
+
+#elif PROB == 63
+// [동물의 아이디와 이름]
+SELECT ANIMAL_ID, NAME 
+FROM ANIMAL_INS 
+ORDER BY ANIMAL_ID
+
+#elif PROB == 64
+// [이름이 있는 동물의 아이디]
+SELECT ANIMAL_ID 
+FROM ANIMAL_INS 
+WHERE NAME != 'NULL' 
+ORDER BY ANIMAL_ID
+
+#elif PROB == 65
+// [아픈 동물 찾기]
+SELECT ANIMAL_ID, NAME 
+FROM ANIMAL_INS 
+WHERE INTAKE_CONDITION = 'Sick'
+
+#elif PROB == 66
+// [어린 동물 찾기]
+SELECT ANIMAL_ID, NAME 
+FROM ANIMAL_INS 
+WHERE INTAKE_CONDITION != 'Aged' 
+ORDER BY ANIMAL_ID
+
+#elif PROB == 67
+// [이름이 없는 동물의 아이디]
+SELECT ANIMAL_ID 
+FROM ANIMAL_INS 
+WHERE NAME IS NULL 
+ORDER BY ANIMAL_ID
+
+#elif PROB == 68
+// [최댓값 구하기]
+SELECT DATETIME 
+FROM ANIMAL_INS 
+ORDER BY DATETIME DESC LIMIT 1
+
+#elif PROB == 69
+// [모든 레코드 조회하기]
+SELECT* 
+FROM ANIMAL_INS 
+ORDER BY ANIMAL_ID
+
+#elif PROB == 70
+// [콜라 문제]
+#include <string>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+int solution(int a, int b, int n) 
+{
+	int answer = 0;
+
+	// 빈병 a개를 가져다주면
+	// 콜라 b개를 주는 가게
+	// 빈병 n개가 있을 때, 받을 수 있는 콜라 병의 수
+
+	// 몫
+	int quotient = 1;
+
+	while (quotient > 0)
+	{
+		quotient = n / a;
+		n = n - (quotient * a) + (quotient * b);		
+		answer += (quotient * b);
+	}
+
+	return answer;
+}
+
+int main()
+{
+	//solution(2, 1, 20);
+	solution(3, 1, 20);
+
+	return 0;
+}
+
+#elif PROB == 71
+// [소수 만들기]
+
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#define CHOOSE_COUNT 3
+
+using namespace std;
+
+void Combination(int start, vector<int> input, vector<int> result, int& answer)
+{
+	if (result.size() == CHOOSE_COUNT)
+	{
+		int value{ 0 };
+		// 1. 서로 다른 result.size()개를 골라 더하여 value에 대입
+		for (int i = 0; i < result.size(); ++i)
+			value += result[i];
+
+		// 2. isDecimal가 true == "소수O", false == "소수X"
+		bool isDecimal = true;
+		for (int i = 2; i < value; ++i)
+		{
+			// 3. 2부터 value까지 나눠지는 숫자가 있는지 체크
+			if (value % i == 0)
+			{
+				// 4. i로 나눠지므로 소수가 아님
+				isDecimal = false;
+				break;
+			}
+		}
+
+		// 5. 나온 조합의 합은 소수이므로 소수 Count +1
+		if (isDecimal == true)
+			++answer;
+
+		return;
+	}
+	
+	for (int i = start + 1; i < input.size(); ++i)
+	{
+		result.push_back(input[i]);
+		Combination(i, input, result, answer);
+		result.pop_back();
+	}
+}
+
+int solution(vector<int> nums) 
+{
+	int answer = 0;
+	vector<int> result;
+
+	Combination(-1, nums, result, answer);
+
+	return answer;
+}
+
+int main()
+{
+	//solution({ 1,2,3,4 });
+	solution({ 1,2,7,6,4 });
+
+	return 0;
+}
+
+#elif PROB == 72
+// [크기가 작은 부분문자열]
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+int solution(string t, string p) 
+{
+	int answer = 0;
+
+	for (int i = 0; i <= t.size() - p.size(); ++i)
+	{
+		if (t.substr(i, p.size()) <= p)
+			++answer;
+	}
+
+	cout << answer << endl;
+	return answer;
+}
+
+int main()
+{
+	solution("3141592", "271");
+	solution("500220839878", "7");
+	solution("10203", "15");
+
+	return 0;
+}
+
+#elif PROB == 73
+ // [푸드 파이트 대회]
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(vector<int> food) 
+{
+	string answer = "";
+	string food_half = "";
+
+	for (int i = 1; i < food.size(); ++i)
+	{
+		int count{ food[i] / 2 };
+
+		for (int j = 0; j < count; ++j)
+			food_half += to_string(i);
+	}
+
+	answer += food_half;
+	answer += '0';
+	reverse(food_half.begin(), food_half.end());
+	answer += food_half;
+	
+	//cout << answer;
+	return answer;
+}
+
+int main()
+{
+	solution({ 1, 3, 4, 6 }); // "1223330333221"
+	//solution({ 1, 7, 1, 2 }); // "111303111"
+
+	return 0;
+}
+
+#elif PROB == 74
+// [가장 가까운 같은 글자]
+#include <iostream>
+#include <string>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+vector<int> solution(string s)
+{
+	vector<int> answer;
+	answer.reserve(s.length());
+
+	unordered_map<char, int> find_index; // unordered_map<찾을 알파벳, 최근 발견된 위치>
+
+	for (int i = 0; i < s.size(); ++i)
+	{
+		if (find_index.find(s[i]) == find_index.end())
+		{
+			answer.push_back(-1);
+		}
+		else
+		{
+			answer.push_back(i - find_index[s[i]]);
+		}
+		find_index[s[i]] = i;
+	}
+
+	return answer;
+}
+
+int main()
+{
+	solution("banana");
+	//solution("foobar");
+
+	return 0;
+}
 #endif
