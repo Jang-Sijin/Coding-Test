@@ -1,4 +1,4 @@
-#define PROB 74
+#define PROB 85
 
 #if PROB == 1
 // [직사각형 별찍기]
@@ -491,7 +491,7 @@ vector<string> solution(vector<string> answer, int n)
 	sort(answer.begin(), answer.end(), [n](const string& first, const string& second)
 		{
 			if (first[n] == second[n])
-				return first < second;
+			return first < second;
 			else
 				return first[n] < second[n];
 		});
@@ -518,7 +518,7 @@ vector<int> solution(int n, int m)
 {
 	vector<int> answer;
 	// n, m 값 중 작은 값을 min_value에 대입한다.
-	int min_value{ n < m ? min_value = n : min_value = m};
+	int min_value{ n < m ? min_value = n : min_value = m };
 	// 최대 공약수 변수
 	int greatest_common_factor{ 1 };
 	// 최소 공배수 변수
@@ -700,7 +700,7 @@ using namespace std;
 int solution(int n)
 {
 	// case input n == 2 → default answer value = 1
-	vector<bool> check_decimal(n + 1, true);	
+	vector<bool> check_decimal(n + 1, true);
 	int answer = 0;
 
 	for (int i = 2; i <= n; ++i)
@@ -1132,8 +1132,8 @@ int main()
 2. 동물 보호소에 들어온 모든
 3. 결과는 ANIMAL_ID && 4. 역순으로 보여주세요.
 */
-SELECT NAME, DATETIME 
-FROM ANIMAL_INS 
+SELECT NAME, DATETIME
+FROM ANIMAL_INS
 ORDER BY ANIMAL_ID DESC;
 
 #elif PROB == 35
@@ -1236,9 +1236,9 @@ vector<int> solution(int N, vector<int> stages)
 	sort(vector_stage_challenger.begin(), vector_stage_challenger.end(), [](const pair<int, double>& prev, const pair<int, double>& next)
 		{
 			if (prev.second == next.second)
-				return prev.first < next.first;
+			return prev.first < next.first;
 
-			return prev.second > next.second;
+	return prev.second > next.second;
 		});
 
 	// 7. answer(반환 vector)에 결과값 삽입
@@ -1281,14 +1281,14 @@ string to_binary(int n, int common_value)
 {
 	string s_binary = "";
 
-	for(int i = n; i > 0; --i)
+	for (int i = n; i > 0; --i)
 	{
 		if (common_value % 2 == 1)
 			s_binary = '#' + s_binary;
 		else
 			s_binary = ' ' + s_binary;
 
-		common_value = common_value >> 1;	
+		common_value = common_value >> 1;
 	}
 
 	return s_binary;
@@ -1803,7 +1803,7 @@ int main()
 
 using namespace std;
 
-vector<int> solution(vector<int> lottos, vector<int> win_nums) 
+vector<int> solution(vector<int> lottos, vector<int> win_nums)
 {
 	vector<int> answer;
 
@@ -1862,33 +1862,33 @@ int main()
 }
 #elif PROB == 53
 // [강원도에 위치한 생산공장 목록 출력하기]
-SELECT FACTORY_ID, FACTORY_NAME, ADDRESS 
-FROM FOOD_FACTORY 
-WHERE ADDRESS LIKE '강원도%' 
+SELECT FACTORY_ID, FACTORY_NAME, ADDRESS
+FROM FOOD_FACTORY
+WHERE ADDRESS LIKE '강원도%'
 ORDER BY FACTORY_ID ASC
 
 #elif PROB == 54
 // [나이 정보가 없는 회원 수 구하기]
-SELECT COUNT(*) AS 'USERS' 
-FROM USER_INFO 
+SELECT COUNT(*) AS 'USERS'
+FROM USER_INFO
 WHERE AGE IS NULL
 
 #elif PROB == 55
 // [경기도에 위치한 식품창고 목록 출력하기]
-SELECT WAREHOUSE_ID, WAREHOUSE_NAME, ADDRESS, IF(FREEZER_YN IS NULL, 'N', FREEZER_YN) 
-FROM FOOD_WAREHOUSE 
-WHERE ADDRESS LIKE '경기도%' 
+SELECT WAREHOUSE_ID, WAREHOUSE_NAME, ADDRESS, IF(FREEZER_YN IS NULL, 'N', FREEZER_YN)
+FROM FOOD_WAREHOUSE
+WHERE ADDRESS LIKE '경기도%'
 ORDER BY WAREHOUSE_ID ASC
 
 #elif PROB == 56
 // [조건에 맞는 회원수 구하기]
-SELECT COUNT(*) AS 'USERS' 
-FROM USER_INFO 
+SELECT COUNT(*) AS 'USERS'
+FROM USER_INFO
 WHERE YEAR(JOINED) = 2021 AND AGE >= 20 AND AGE <= 29
 
 #elif PROB == 57
 // [가장 비싼 상품 구하기]
-SELECT MAX(PRICE) AS 'MAX_PRICE' 
+SELECT MAX(PRICE) AS 'MAX_PRICE'
 FROM PRODUCT
 
 #elif PROB == 58
@@ -1900,15 +1900,15 @@ ORDER BY HIRE_YMD DESC, DR_NAME ASC
 
 #elif PROB == 59
 // [12세 이하인 여자 환자 목록 출력하기]
-SELECT PT_NAME, PT_NO, GEND_CD, AGE, IFNULL(TLNO, 'NONE') AS TLNO 
-FROM PATIENT 
-WHERE AGE <= 12 AND GEND_CD = 'W' 
+SELECT PT_NAME, PT_NO, GEND_CD, AGE, IFNULL(TLNO, 'NONE') AS TLNO
+FROM PATIENT
+WHERE AGE <= 12 AND GEND_CD = 'W'
 ORDER BY AGE DESC, PT_NAME ASC
 
 #elif PROB == 60
 // [인기있는 아이스크림]
-SELECT FLAVOR 
-FROM FIRST_HALF 
+SELECT FLAVOR
+FROM FIRST_HALF
 ORDER BY TOTAL_ORDER DESC, SHIPMENT_ID ASC
 
 #elif PROB == 61
@@ -1927,47 +1927,47 @@ ORDER BY PUBLISHED_DATE ASC
 
 #elif PROB == 63
 // [동물의 아이디와 이름]
-SELECT ANIMAL_ID, NAME 
-FROM ANIMAL_INS 
+SELECT ANIMAL_ID, NAME
+FROM ANIMAL_INS
 ORDER BY ANIMAL_ID
 
 #elif PROB == 64
 // [이름이 있는 동물의 아이디]
-SELECT ANIMAL_ID 
-FROM ANIMAL_INS 
-WHERE NAME != 'NULL' 
+SELECT ANIMAL_ID
+FROM ANIMAL_INS
+WHERE NAME != 'NULL'
 ORDER BY ANIMAL_ID
 
 #elif PROB == 65
 // [아픈 동물 찾기]
-SELECT ANIMAL_ID, NAME 
-FROM ANIMAL_INS 
+SELECT ANIMAL_ID, NAME
+FROM ANIMAL_INS
 WHERE INTAKE_CONDITION = 'Sick'
 
 #elif PROB == 66
 // [어린 동물 찾기]
-SELECT ANIMAL_ID, NAME 
-FROM ANIMAL_INS 
-WHERE INTAKE_CONDITION != 'Aged' 
+SELECT ANIMAL_ID, NAME
+FROM ANIMAL_INS
+WHERE INTAKE_CONDITION != 'Aged'
 ORDER BY ANIMAL_ID
 
 #elif PROB == 67
 // [이름이 없는 동물의 아이디]
-SELECT ANIMAL_ID 
-FROM ANIMAL_INS 
-WHERE NAME IS NULL 
+SELECT ANIMAL_ID
+FROM ANIMAL_INS
+WHERE NAME IS NULL
 ORDER BY ANIMAL_ID
 
 #elif PROB == 68
 // [최댓값 구하기]
-SELECT DATETIME 
-FROM ANIMAL_INS 
+SELECT DATETIME
+FROM ANIMAL_INS
 ORDER BY DATETIME DESC LIMIT 1
 
 #elif PROB == 69
 // [모든 레코드 조회하기]
-SELECT* 
-FROM ANIMAL_INS 
+SELECT *
+FROM ANIMAL_INS
 ORDER BY ANIMAL_ID
 
 #elif PROB == 70
@@ -1978,7 +1978,7 @@ ORDER BY ANIMAL_ID
 
 using namespace std;
 
-int solution(int a, int b, int n) 
+int solution(int a, int b, int n)
 {
 	int answer = 0;
 
@@ -1992,7 +1992,7 @@ int solution(int a, int b, int n)
 	while (quotient > 0)
 	{
 		quotient = n / a;
-		n = n - (quotient * a) + (quotient * b);		
+		n = n - (quotient * a) + (quotient * b);
 		answer += (quotient * b);
 	}
 
@@ -2045,7 +2045,7 @@ void Combination(int start, vector<int> input, vector<int> result, int& answer)
 
 		return;
 	}
-	
+
 	for (int i = start + 1; i < input.size(); ++i)
 	{
 		result.push_back(input[i]);
@@ -2054,7 +2054,7 @@ void Combination(int start, vector<int> input, vector<int> result, int& answer)
 	}
 }
 
-int solution(vector<int> nums) 
+int solution(vector<int> nums)
 {
 	int answer = 0;
 	vector<int> result;
@@ -2079,7 +2079,7 @@ int main()
 #include <vector>
 using namespace std;
 
-int solution(string t, string p) 
+int solution(string t, string p)
 {
 	int answer = 0;
 
@@ -2103,14 +2103,14 @@ int main()
 }
 
 #elif PROB == 73
- // [푸드 파이트 대회]
+// [푸드 파이트 대회]
 #include <iostream>
 #include <string>
 #include <vector>
 
 using namespace std;
 
-string solution(vector<int> food) 
+string solution(vector<int> food)
 {
 	string answer = "";
 	string food_half = "";
@@ -2127,7 +2127,7 @@ string solution(vector<int> food)
 	answer += '0';
 	reverse(food_half.begin(), food_half.end());
 	answer += food_half;
-	
+
 	//cout << answer;
 	return answer;
 }
@@ -2176,6 +2176,650 @@ int main()
 {
 	solution("banana");
 	//solution("foobar");
+
+	return 0;
+}
+
+#elif PROB == 75
+// [체육복]
+#include <iostream>
+#include <vector>
+#include <set>
+#include <unordered_set>
+
+using namespace std;
+
+int solution(int n, vector<int> lost, vector<int> reserve)
+{
+	int answer{ 0 };
+
+	// 범위: 체육복을 도난당한 학생들
+	unordered_set<int> lost_students{ lost.begin(), lost.end() };
+
+	// 범위: 여벌의 체육복을 가지고 있는 학생들
+	set<int> share_students{};
+
+	// 범위: 여벌의 체육복을 가지고 있는 학생들
+	for (const auto& reserve_student : reserve)
+	{
+		// 여벌의 체육복을 가지고 있는 학생이 체육복을 도난당하지 않은 경우
+		if (lost_students.find(reserve_student) == lost_students.end())
+		{
+			// 체육복을 빌려줄 수 있는 학생으로 분류한다.
+			share_students.insert(reserve_student);
+		}
+		// 여벌의 체육복을 가지고 있는 학생이 체육복을 도난당한 경우
+		else
+		{
+			// 체육복을 도난당한 목록에서 제외한다. → 도난을 당하였지만 수업은 들을 수 있음
+			lost_students.erase(reserve_student);
+		}
+	}
+
+	// 범위: 도난을 당하지 않고 여벌의 체육복을 가지고 있는 사람들
+	for (const auto& share_student : share_students)
+	{
+		// 도난을 당하지 않고 여벌의 체육복을 가지고 있는 학생의 "앞 번호"가 체육복을 도난당한 학생일 때
+		if (lost_students.find(share_student - 1) != lost_students.end())
+		{
+			// 앞 번호 학생에게 체육복을 빌려준다. → 수업을 들을 수 있음
+			lost_students.erase(share_student - 1);
+		}
+		else if (lost_students.find(share_student + 1) != lost_students.end())
+		{
+			// 뒷 번호 학생에게 체육복을 빌려준다. → 수업을 들을 수 있음
+			lost_students.erase(share_student + 1);
+		}
+	}
+
+	// 체육 수업을 들을 수 있는 학생 수 = 전체 학생 수(n) - 체육복을 빌리지 못한 학생들
+	answer = n - lost_students.size();
+
+	return answer;
+}
+
+int main()
+{
+	solution(5, { 2,4 }, { 1,3,5 }); // result: 5
+	solution(5, { 2,4 }, { 3 }); // result: 4
+	solution(3, { 3 }, { 1 }); // result: 2
+
+	return 0;
+}
+
+#elif PROB == 76
+// [과일 장수]
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(int k, int m, vector<int> score)
+{
+	int answer = 0;
+
+	// 1. 모든 사과들의 점수 내림차순 정렬
+	sort(score.begin(), score.end(), greater<>());
+
+	// 2. 사과의 개수가 m보다 크거나 같을 때 까지 사과 상자를 포장한다.
+	int point{ 0 };
+	while (point + m <= score.size())
+	{
+		// 2-1. 사과의 상태가 좋은 순서중 가장 상태가 안좋은 m번째 사과 상태(점수) * m개를 = 사과 상자 1개
+		answer += score[point + (m - 1)] * m;
+
+		// 2-2. 사과의 상태가 좋은 것부터 1개씩 m개 포장한다.(point +m 이동)
+		point += m;
+	}
+
+	cout << answer << endl;
+	return answer;
+}
+
+int main()
+{
+	solution(3, 4, { 1, 2, 3, 1, 2, 3, 1 }); // result: 8
+	solution(4, 3, { 4, 1, 2, 2, 4, 4, 4, 4, 1, 2, 4, 2 }); // result: 33
+
+	return 0;
+}
+
+#elif PROB == 77
+// [완주하지 못한 선수]
+#include <iostream>
+#include <string>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+string solution(vector<string> participant, vector<string> completion)
+{
+	string answer = "";
+
+	// hash table, O(1), key 정렬x
+	unordered_map<string, int> completion_students;
+
+	// 모든 학생들의 이름 +1, O(N)
+	for (auto& p : participant)
+	{
+		completion_students[p] += 1;
+	}
+
+	// 완주한 학생들의 이름 -1, O(N)
+	for (auto& c : completion)
+	{
+		completion_students[c] -= 1;
+	}
+
+	// 완주하지 못한 학생 → 0보다 크다, 완주 못한 학생 찾으면 break, O(N)보다 작음
+	for (auto& cs : completion_students)
+	{
+		if (cs.second > 0)
+		{
+			answer = cs.first;
+			break;
+		}
+	}
+	cout << answer;
+
+	return answer;
+}
+
+int main()
+{
+	//solution({"leo", "kiki", "eden"}, { "eden", "kiki" }); // result: "leo"
+	//solution({ "marina", "josipa", "nikola" }, { "vinko", "filipa", "josipa", "filipa", "marina", "nikola" }); // result: "vinko"
+	solution({ "mislav", "stanko", "mislav", "ana" }, { "stanko", "ana", "mislav" }); // result: "mislav"
+
+	return 0;
+}
+
+#elif PROB == 78
+// [명예의 전당 (1)]
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> solution(int k, vector<int> score)
+{
+	vector<int> answer;
+	vector<int> rank;
+
+	for (int i = 0; i < score.size(); ++i)
+	{
+		rank.push_back(score[i]);
+		sort(rank.begin(), rank.end(), greater<>());
+
+		i < k ? answer.push_back(*min_element(rank.begin(), rank.end())) : answer.push_back(rank[k - 1]);
+	}
+
+	//for (auto& iter : answer)
+	//{
+	//	cout << iter << " ";
+	//}
+
+	return answer;
+}
+
+int main()
+{
+	solution(3, { 10, 100, 20, 150, 1, 100, 200 }); // result: [10, 10, 10, 20, 20, 100, 100]
+	// solution(4, { 0, 300, 40, 300, 20, 70, 150, 50, 500, 1000 }); // result: [0, 0, 0, 0, 20, 40, 70, 70, 150, 300]
+
+	return 0;
+}
+
+#elif PROB == 79
+#include <iostream>
+#include <string>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+string solution(string X, string Y)
+{
+	string answer = "";
+	unordered_map<char, int> um_X;
+	unordered_map<char, int> um_Y;
+
+	for (int i = 0; i < X.size(); ++i)
+	{
+		um_X[X[i]] += 1;
+	}
+
+	for (int i = 0; i < Y.size(); ++i)
+	{
+		um_Y[Y[i]] += 1;
+	}
+
+	for (int i = 9; i >= 0; --i)
+	{
+		if (um_X[i + 48] > um_Y[i + 48])
+		{
+			for (int j = 0; j < um_Y[i + 48]; ++j)
+			{
+				answer += i + 48;
+			}
+		}
+		else
+		{
+			for (int j = 0; j < um_X[i + 48]; ++j)
+			{
+				answer += i + 48;
+			}
+		}
+	}
+
+	if (answer == "")
+		answer = "-1";
+	else if (answer[0] == '0')
+		answer = "0";
+
+	cout << answer;
+
+	return answer;
+}
+
+int main()
+{
+	//solution("100", "2345"); // "-1"
+	//solution("100", "203045"); // "0"
+	//solution("100", "123450"); // "10"
+	//solution("12321", "42531"); // "321"
+	solution("5525", "1255"); // "552"
+
+	return 0;
+}
+
+#elif PROB == 80
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int Get_Distance(const int number, const int position)
+{
+	int distance = 4;
+
+	if (abs(number - position) == 0)
+		distance = 0;
+	else if (abs(number - position) == 1 || abs(number - position) == 3)
+		distance = 1;
+	else if (abs(number - position) == 2 || abs(number - position) == 4 || abs(number - position) == 6)
+		distance = 2;
+	else if (abs(number - position) == 5 || abs(number - position) == 7 || abs(number - position) == 9)
+		distance = 3;
+
+	return distance;
+}
+
+string solution(vector<int> numbers, string hand)
+{
+	string answer = "";
+	replace(numbers.begin(), numbers.end(), 0, 11);
+	int left_point = 10;
+	int right_point = 12;
+
+	for (int i = 0; i < numbers.size(); ++i)
+	{
+		if (numbers[i] == 1 || numbers[i] == 4 || numbers[i] == 7)
+		{
+			answer += "L";
+			left_point = numbers[i];
+		}
+		else if (numbers[i] == 3 || numbers[i] == 6 || numbers[i] == 9)
+		{
+			answer += "R";
+			right_point = numbers[i];
+		}
+		else
+		{
+			int left_distance = Get_Distance(numbers[i], left_point);
+			int right_distance = Get_Distance(numbers[i], right_point);
+
+			if (left_distance < right_distance)
+			{
+				answer += "L";
+				left_point = numbers[i];
+			}
+			else if (left_distance > right_distance)
+			{
+				answer += "R";
+				right_point = numbers[i];
+			}
+			else
+			{
+				//cout << left_point << ", " << right_point << ", " << numbers[i] << endl;
+				//cout << left_distance << ", " << right_distance << endl;
+				if (hand == "right")
+				{
+					answer += "R";
+					right_point = numbers[i];
+				}
+				else if (hand == "left")
+				{
+					answer += "L";
+					left_point = numbers[i];
+				}
+			}
+		}
+	}
+	//cout << answer << endl;
+
+	return answer;
+}
+
+int main()
+{
+	solution({ 1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5 }, "right"); // "LRLLLRLLRRL"
+	solution({7, 0, 8, 2, 8, 3, 1, 5, 7, 6, 2}, "left"); // "LRLLRRLLLRR"
+	solution({1, 2, 3, 4, 5, 6, 7, 8, 9, 0}, "right"); // "LLRLLRLLRL"
+
+	return 0;
+}
+
+#elif PROB == 81
+// [크레인 인형뽑기 게임]
+#include <iostream>
+#include <string>
+#include <vector>
+#include <stack>
+using namespace std;
+
+int solution(vector<vector<int>> board, vector<int> moves) 
+{
+	int answer = 0;
+	stack<int> basket;
+	
+	// 크레인을 이동하여 집어 올리기 시작한다.
+	for (int move = 0; move < moves.size(); ++move)
+	{		
+		// 크레인 이동 후 가장 윗 부분부터 인형이 있는 높이까지 크레인이 내려간다.
+		for (int depth = 0; depth < board.size(); ++depth)
+		{
+			// 인형이 집혔을 경우
+			if (board[depth][moves[move] - 1] != 0)
+			{
+				//cout << depth << ", " << moves[move] - 1 << ", " << board[depth][moves[move] - 1] << " 잡혔다!" << endl;	
+							
+				// 크레인에서 뽑은 인형과 바구니 최상단에 위치하는 인형의 종류가 같을 경우
+				if (!basket.empty() && basket.top() == board[depth][moves[move] - 1])
+				{
+					basket.pop();
+					answer += 2;
+				}
+				else
+				{
+					// 인형을 바구니에 넣는다.
+					basket.push(board[depth][moves[move] - 1]);
+				}
+				// 크레인 안에 있던 인형은 없어진다.
+				board[depth][moves[move] - 1] = 0;
+
+				// 크레인 1회 종료
+				break;
+			}
+		}
+	}
+
+	return answer;
+}
+
+int main()
+{
+	solution({ {0, 0, 0, 0, 0} , {0, 0, 1, 0, 3}, {0, 2, 5, 0, 1}, {4, 2, 4, 4, 2}, {3, 5, 1, 3, 1} }, { 1, 5, 3, 5, 1, 2, 1, 4 });
+
+	return 0;
+}
+
+#elif PROB == 82
+// [신규 아이디 추천]
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string solution(string new_id) 
+{
+	string answer = "";
+
+	// 1단계 new_id의 모든 대문자를 대응되는 소문자로 치환합니다.
+	for (int i = 0; i < new_id.length(); ++i)
+		new_id[i] = tolower(new_id[i]);
+	cout << "1단계: " << new_id << endl;
+
+	// 2단계 new_id에서 알파벳 소문자, 숫자, 빼기(-), 밑줄(_), 마침표(.)를 제외한 모든 문자를 제거합니다.
+	for (int i = 0; i < new_id.length(); ++i)
+	{
+		if (!isalpha(new_id[i]) && !isdigit(new_id[i]) && new_id[i] != '-' && new_id[i] != '_' && new_id[i] != '.')
+		{			
+			new_id = new_id.substr(0, i) + new_id.substr(i + 1, new_id.length());
+			--i;
+		}
+	}
+	cout << "2단계: " << new_id << endl;
+
+	// 3단계 new_id에서 마침표(.)가 2번 이상 연속된 부분을 하나의 마침표(.)로 치환합니다.
+	for (int i = 0; i < new_id.length(); ++i)
+	{		
+		if (new_id[i] == '.')
+		{			
+			int index = 1;
+			while (new_id[i + index] == '.')
+				++index;
+
+			new_id.erase(i + 1, index - 1);
+		}
+	}
+	cout << "3단계: " << new_id << endl;
+
+	// 4단계 new_id에서 마침표(.)가 처음이나 끝에 위치한다면 제거합니다.
+	if (new_id[0] == '.')
+		new_id.erase(0, 1);
+	if (new_id[new_id.length() - 1] == '.')
+		new_id.erase(new_id.length() - 1, 1);
+	cout << "4단계: " << new_id << endl;
+
+	// 5단계 new_id가 빈 문자열이라면, new_id에 "a"를 대입합니다.
+	if (new_id.empty())
+		new_id = "a";
+	cout << "5단계: " << new_id << endl;
+
+	//  6단계 new_id의 길이가 16자 이상이면, new_id의 첫 15개의 문자를 제외한 나머지 문자들을 모두 제거합니다.
+	// 	만약 제거 후 마침표(.)가 new_id의 끝에 위치한다면 끝에 위치한 마침표(.) 문자를 제거합니다.
+	if (new_id.length() >= 16)
+	{
+		new_id = new_id.substr(0, 15);
+
+		if (new_id[new_id.length() - 1] == '.')
+			new_id.erase(new_id.length() - 1);
+	}
+	cout << "6단계: " << new_id << endl;
+
+	// 7단계 new_id의 길이가 2자 이하라면, new_id의 마지막 문자를 new_id의 길이가 3이 될 때까지 반복해서 끝에 붙입니다.
+	while (new_id.length() <= 2)
+	{
+		new_id += new_id[new_id.length() - 1];
+	}
+	cout << "7단계: " << new_id << endl;
+
+	return answer = new_id;
+}
+
+int main()
+{
+	//solution("...!@BaT#*..y.abcdefghijklm"); // "bat.y.abcdefghi"
+	solution("z-+.^.");						 // "z--"
+	//solution("=.=");						 // "aaa"
+	//solution("123_.def");					 // "123_.def"
+	//solution("abcdefghijklmn.p");			 // "abcdefghijklmn"
+
+	return 0;
+}
+
+#elif PROB == 83
+// [기사단원의 무기] // [약수 빠르게 구하기]
+#include <iostream>
+#include <string>
+#include <vector>
+#include <numeric>
+using namespace std;
+
+int solution(int number, int limit, int power)
+{
+	int answer{ 0 };
+	vector<int> divisor;
+	divisor.reserve(number);
+
+	for (int i = 1; i <= number; ++i)
+	{
+		int divisor_count{ 0 };
+		// 1에서 sqrt(n)까지 의 모든 숫자를 반복하여 해당 숫자가 n을 나누는지 확인하고 약수를 증가시키는 것입니다.
+		// 이 접근법은 O(sqrt(n)) 시간이 걸립니다. 
+		for (int j = 1; j <= sqrt(i); ++j)
+		{
+			if (i % j == 0)
+			{
+				if (i / j == j)
+					// If divisors are equal,
+					// count only one
+					++divisor_count;
+				else
+					// Otherwise count both
+					divisor_count += 2;
+			}				
+		}
+
+		if (divisor_count > limit)
+			divisor.push_back(power);
+		else
+			divisor.push_back(divisor_count);
+	}
+
+	answer = accumulate(divisor.begin(), divisor.end(), 0);
+	cout << answer << endl;
+	return answer;
+}
+
+int main()
+{	
+	solution(5, 3, 2); // 10
+	solution(10, 3, 2); // 21
+
+	return 0;
+}
+
+#elif PROB == 84
+// [옹알이 (2)]
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(vector<string> babbling)
+{
+	int answer = 0;
+	vector<string> word{ "aya", "ye", "woo", "ma" };
+
+	// 연속해서 같은 발음을 하는 것을 어려워합니다.
+	for (int babbling_index = 0; babbling_index < babbling.size(); ++babbling_index)
+	{
+		string recent_word{ "" };
+		for (int word_index = 0; word_index < word.size(); ++word_index)
+		{
+			if (recent_word != word[word_index] && babbling[babbling_index].substr(0, word[word_index].length()) == word[word_index])
+			{	
+				//cout << babbling[babbling_index] << ": ";
+				babbling[babbling_index] = babbling[babbling_index].substr(word[word_index].length(), babbling[babbling_index].length() - 1);
+				//cout << babbling[babbling_index] << ", " << word[word_index] << endl;
+				recent_word = word[word_index];
+				word_index = -1;
+			}
+		}
+
+		if (babbling[babbling_index].empty())					
+			++answer;
+	}
+
+	cout << answer << endl;
+	return answer;
+}
+
+int main()
+{
+	solution({ "aya", "yee", "u" }); // 1
+	solution({ "ayaye", "uuu", "yeye", "yemawoo", "ayaayaa" }); // 2
+	solution({ "yemayemayemayemayemayemayemaye" }); // 1
+
+	return 0;
+}
+
+#elif PROB == 85
+// [문자열 나누기]
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+int solution(string s) 
+{
+	int answer = 0;
+
+	char first_char{ s[0] };
+	char recent_char{ s[0] };
+	int char_count{ 0 };
+	int sign{ 1 };
+
+	for (int i = 1; i < s.length(); ++i)
+	{
+		if (first_char != s[i] && recent_char == s[i])
+		{
+			char_count += sign;
+			recent_char = s[i];
+			
+			if (char_count == 0)
+			{
+				first_char = s[i + 1];
+				++i;
+				++answer;
+			}
+		}
+		else if (first_char != s[i] && recent_char != s[i])
+		{
+			sign *= -1;
+			char_count += sign;
+			recent_char = s[i];
+
+			if (char_count == 0)
+			{
+				first_char = s[i + 1];
+				++i;
+				++answer;
+			}
+		}
+	}
+	++answer;
+
+	cout << answer << endl;
+	return answer;
+}
+
+int main()
+{
+	solution("banana"); // 3
+	solution("abracadabra"); // 6
+	solution("aaabbaccccabba"); // 3
 
 	return 0;
 }
