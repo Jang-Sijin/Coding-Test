@@ -1,4 +1,4 @@
-#define PROB 87
+#define PROB 89
 
 #if PROB == 1
 // [직사각형 별찍기]
@@ -2770,56 +2770,54 @@ int main()
 #include <iostream>
 #include <string>
 #include <vector>
+
 using namespace std;
 
-int solution(string s) 
+int solution(string s)
 {
 	int answer = 0;
 
+	// 입력 string 값의 첫번 째 문자와 개수
 	char first_char{ s[0] };
-	char recent_char{ s[0] };
-	int char_count{ 0 };
-	int sign{ 1 };
+	int first_count{ 1 };
+
+	// x와 x가 아닌 다른 글자들이 나온 횟수
+	int another_count{ 0 };
+
+	// 예외 1)
+	if (s.size() == 1)
+	{
+		return 1;
+	}
 
 	for (int i = 1; i < s.length(); ++i)
 	{
-		if (first_char != s[i] && recent_char == s[i])
-		{
-			char_count += sign;
-			recent_char = s[i];
-			
-			if (char_count == 0)
-			{
-				first_char = s[i + 1];
-				++i;
-				++answer;
-			}
-		}
-		else if (first_char != s[i] && recent_char != s[i])
-		{
-			sign *= -1;
-			char_count += sign;
-			recent_char = s[i];
+		first_char == s[i] ? ++first_count : ++another_count;
 
-			if (char_count == 0)
-			{
-				first_char = s[i + 1];
-				++i;
-				++answer;
-			}
+		if (first_count == another_count)
+		{
+			++answer;
+
+			first_char = s[i + 1];
+			first_count = 1;
+			another_count = 0;
+			++i;
 		}
+
+		if (i == s.length() - 1)
+			++answer;
 	}
-	++answer;
 
 	cout << answer << endl;
+
 	return answer;
 }
 
 int main()
 {
-	solution("banana"); // 3
-	solution("abracadabra"); // 6
-	solution("aaabbaccccabba"); // 3
+	solution("aaba"); // result: 1
+	solution("abracadabra"); // result: 6
+	solution("aaabbaccccabba"); // result: 3
 
 	return 0;
 }
@@ -2837,4 +2835,78 @@ IF(DATEDIFF(END_DATE, START_DATE) + 1 >= 30, '장기 대여', '단기 대여') AS RENT_T
 FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
 WHERE DATE_FORMAT(START_DATE, '%Y-%m') = '2022-09'
 ORDER BY HISTORY_ID DESC;
+
+#elif PROB == 88
+// [성격 유형 검사하기]
+#include <iostream>
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <cmath>
+
+using namespace std;
+
+string solution(vector<string> survey, vector<int> choices)
+{
+	string answer = "";
+	unordered_map<char, int> personality_type;
+
+	int agree{ 0 };
+	int disagree{ 0 };
+
+	for (int i = 0; i < survey.size(); ++i)
+	{		
+		// 점수부여: 1~7 → -3~3 범위로 변경
+		if (choices[i] - 4 < 0)
+		{
+			personality_type[survey[i][0]] += abs(choices[i] - 4);;
+		}
+		else if (choices[i] - 4 > 0)
+		{
+			personality_type[survey[i][1]] += (choices[i] - 4);;
+		}
+	}
+
+	personality_type['R'] < personality_type['T'] ? answer += "T" : answer += "R";
+	personality_type['C'] < personality_type['F'] ? answer += "F" : answer += "C";
+	personality_type['J'] < personality_type['M'] ? answer += "M" : answer += "J";
+	personality_type['A'] < personality_type['N'] ? answer += "N" : answer += "A";
+
+	cout << answer << endl;
+	
+	return answer;
+}
+
+int main()
+{
+	solution({ "AN", "CF", "MJ", "RT", "NA" }, { 5, 3, 2, 7, 5 }); // result: "TCMA"
+	//solution({ "TR", "RT", "TR" }, { 7, 1, 3 }); // result: "RCJA"
+
+	return 0;
+}
+
+#elif PROB == 89
+// [햄버거 만들기]
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(vector<int> ingredient)
+{
+	int answer = 0;
+
+	string recipe[4]{ "빵", "아채", "고기", "빵" };
+
+	return answer;
+}
+
+int main()
+{
+	solution({ 2, 1, 1, 2, 3, 1, 2, 3, 1 }); // result: 2
+	//solution({ 1, 3, 2, 1, 2, 1, 3, 1, 2 }); // result: 0
+
+	return 0;
+}
+
 #endif
