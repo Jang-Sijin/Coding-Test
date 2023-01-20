@@ -1,7 +1,7 @@
-#define PROB 89
+#define PROB 91
 
 #if PROB == 1
-// [직사각형 별찍기]
+// {직사각형 별찍기]
 #include <iostream>
 
 using namespace std;
@@ -2887,8 +2887,10 @@ int main()
 
 #elif PROB == 89
 // [햄버거 만들기]
+#include <iostream>
 #include <string>
 #include <vector>
+#define MAX_RECIPE_COMBO 4
 
 using namespace std;
 
@@ -2896,7 +2898,52 @@ int solution(vector<int> ingredient)
 {
 	int answer = 0;
 
-	string recipe[4]{ "빵", "아채", "고기", "빵" };
+	// ["빵", "아채", "고기", "빵"]
+	int recipe[MAX_RECIPE_COMBO]{ 1, 2, 3, 1 };
+	int combo_count{ 0 };
+
+	for (int i = 0; i < ingredient.size(); ++i)
+	{
+		// 레시피 순서와 맞지 않을 때 → 콤보 초기화
+		if (ingredient[i] != recipe[combo_count])
+			combo_count = 0;
+
+		// 레시피 순서와 맞을 때 → 콤보 카운트 +1
+		if (ingredient[i] == recipe[combo_count])
+			++combo_count;
+
+		// 레시피를 완성하였을 때
+		if (MAX_RECIPE_COMBO == combo_count)
+		{
+			// 완성된 햄버거의 개수 +1, 콤보 카운트 초기화(0)
+			++answer;
+			combo_count = 0;
+
+			// 완성된 재료를 4개를 제외한다.
+			for (int index = 0; index < MAX_RECIPE_COMBO; ++index)
+			{
+				ingredient.erase(ingredient.begin() + i);
+				--i;
+			}
+
+			// 더 이상 재료가 없으면 작업을 끝낸다.
+			if (ingredient.empty())
+				break;
+			// 재료가 아직 남아있을 때
+			else
+			{
+				// 예외처리) 이전에 콤보 3까지 도달하였을 경우가 존재할 수 있으니, i-4번째로 돌아가서 콤보를 재확인한다.
+				for (int index = 0; index < MAX_RECIPE_COMBO; ++index)
+				{
+					// i-4번째가 for 범위를 벗어날 수 있으니 주의
+					if (i <= -1)
+						break;
+					else
+						--i;
+				}
+			}
+		}
+	}
 
 	return answer;
 }
@@ -2904,9 +2951,157 @@ int solution(vector<int> ingredient)
 int main()
 {
 	solution({ 2, 1, 1, 2, 3, 1, 2, 3, 1 }); // result: 2
-	//solution({ 1, 3, 2, 1, 2, 1, 3, 1, 2 }); // result: 0
+	solution({ 1, 3, 2, 1, 2, 1, 3, 1, 2 }); // result: 0
 
 	return 0;
 }
 
+#elif PROB == 90
+// [신고 결과 받기]
+#include <iostream>
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <set>
+
+using namespace std;
+
+vector<int> solution(vector<string> id_list, vector<string> report, int k)
+{
+	vector<int> answer(id_list.size(), 0);
+
+	// 신고당한 유저를 key, 신고한 유저를 value로 설정한다.
+	unordered_map<string, set<string>> report_users;	
+	// 신고당한 유저가 몇번 신고를 당하였는지 확인용
+	unordered_map<string, int> report_count;
+
+	for (int i = 0; i < report.size(); ++i)
+	{
+		for (int j = 0; j < report[i].length(); ++j)
+		{
+			if (report[i][j] == ' ')
+			{
+				// 신고한 이름
+				string prosecutor_name = report[i].substr(0, j);
+				// 신고당한 이름
+				string report_name = report[i].substr(j + 1, report[i].length());				
+			
+				// 중복으로 신고한 유저인지 확인한다.
+				if (report_users[report_name].find(prosecutor_name) == report_users[report_name].end())
+				{
+					// 신고당한 유저는 신고자의 이름을 추가한다.
+					report_users[report_name].insert(prosecutor_name);
+
+					// 신고당한 유저의 신고당한 횟수 +1
+					report_count[report_name] += 1;
+				}
+			}
+		}
+	}
+
+	// 이용 정지 이메일 리스트
+	vector<string> report_email_id;
+	for (auto iter = report_count.begin(); iter != report_count.end(); ++iter)
+	{
+		// k번 이상 신고당한자는 report_email_id로 분류한다.
+		if (iter->second >= k)
+			report_email_id.push_back(iter->first);
+	}
+
+	// 이용 정지 이메일 리스트를 순회
+	for (int i = 0; i < report_email_id.size(); ++i)
+	{
+		// 정지당한 유저를 신고한 유저: value → iter를 순회한다.
+		for (auto iter = report_users[report_email_id[i]].begin(); iter != report_users[report_email_id[i]].end(); ++iter)
+		{
+			if (find(id_list.begin(), id_list.end(), *iter) != id_list.end())
+			{
+				// 이용 정지시킨 신고자의 index번호를 찾는다.
+				int index = find(id_list.begin(), id_list.end(), *iter) - id_list.begin();
+				
+				// 신고자가 정지시킨 유저 수를 증가시킨다.
+				answer[index] += 1;
+			}
+		}
+	}
+
+	for (int i = 0; i < answer.size(); ++i)
+		cout << answer[i] << " ";
+	cout << endl;
+
+	return answer;
+}
+
+int main()
+{
+	solution({ "muzi", "frodo", "apeach", "neo" }, { "muzi frodo", "apeach frodo", "frodo neo", "muzi neo", "apeach muzi" }, 2); // result: [2, 1, 1, 0]
+	solution({ "con", "ryan" }, { "ryan con", "ryan con", "ryan con", "ryan con" }, 3); // result: [0, 0]
+
+	return 0;
+}
+
+#elif PROB == 91
+// [개인정보 수집 유효기간]
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+using namespace std;
+
+#define DAY 28
+#define MONTH 12
+#define YEAR (MONTH * DAY)
+
+vector<int> solution(string today, vector<string> terms, vector<string> privacies) 
+{
+	vector<int> answer;
+
+	// 1. 현재 날짜를 일(day)로 환산한다.
+	int today_count{ stoi(today.substr(0, 4)) * YEAR + stoi(today.substr(5, 2)) * DAY + stoi(today.substr(8, 2)) };
+
+	// 2. terms → key: 약관 종류, value: 일(day)로 설정한다.
+	map<string, int> terms_map;
+	for (int i = 0; i < terms.size(); ++i)
+	{
+		for(int j = 0; j < terms[i].length(); ++j)
+		{
+			if (terms[i][j] == ' ')
+			{
+				terms_map[terms[i].substr(0, j)] += (stoi(terms[i].substr(j + 1, terms[i].length())) * DAY);
+			}
+		}		
+	}
+
+	// 3. privacies → 개인정보 수집 일자 + 약관 기간 = 유효기간을 일(day)로 환산하여 오늘날짜(today)와 비교하여 유효기간이 지났는지 확인한다.
+	for (int vec_index = 0; vec_index < privacies.size(); ++vec_index)
+	{
+		for (int str_index = 0; str_index < privacies[vec_index].length(); ++str_index)
+		{
+			if (privacies[vec_index][str_index] == ' ')
+			{
+				int year_month_day = stoi(privacies[vec_index].substr(0, 4)) * YEAR 
+					+ stoi(privacies[vec_index].substr(5, 2)) * DAY 
+					+ stoi(privacies[vec_index].substr(8, 2));
+
+				int expiration_month = terms_map[privacies[vec_index].substr(str_index+1, privacies[vec_index].length())];
+
+				year_month_day += expiration_month;
+
+				// 유효기간이 지난 유저 번호를 추가한다.
+				if (today_count >= year_month_day)
+					answer.push_back(vec_index + 1);
+			}
+		}		
+	}
+
+	return answer;
+}
+
+int main()
+{
+	solution("2022.05.19", {"A 6", "B 12", "C 3"}, {"2021.05.02 A", "2021.07.01 B", "2022.02.19 C", "2022.02.20 C"}); // result: {1, 3}
+	solution("2020.01.01", {"Z 3", "D 5"}, {"2019.01.01 D", "2019.11.15 Z", "2019.08.02 D", "2019.07.01 D", "2018.12.28 Z"}); // result: {1, 4, 5}
+
+	return 0;
+}
 #endif
