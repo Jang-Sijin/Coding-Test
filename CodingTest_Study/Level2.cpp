@@ -1,4 +1,4 @@
-#define PROB 5
+#define PROB 6
 
 #if PROB == 1
 // [중복 제거하기]
@@ -98,4 +98,10 @@ int main()
 	return 0;
 }
 
+#elif PROB == 6
+// [이름에 el이 들어가는 동물 찾기]
+SELECT ANIMAL_ID, NAME
+FROM ANIMAL_INS
+WHERE NAME LIKE CONCAT('%EL%') AND ANIMAL_TYPE LIKE 'Dog'
+ORDER BY NAME ASC
 #endif
