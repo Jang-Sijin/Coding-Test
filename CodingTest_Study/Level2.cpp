@@ -1,4 +1,4 @@
-#define PROB 7
+#define PROB 8
 
 #if PROB == 1
 // [중복 제거하기]
@@ -132,6 +132,43 @@ int main()
 {
 	solution({ 1, 4, 2 }, { 5, 4, 4 }); // result: 29
 	solution({ 1, 2 }, { 3, 4 }); // result: 10
+
+	return 0;
+}
+#elif PROB == 8
+// [올바른 괄호]
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+bool solution(string s) 
+{
+	bool answer{ true };
+	int s_count{ 0 };
+
+	for (int i = 0; i < s.size(); ++i)
+	{
+		if (s[i] == '(')
+			++s_count;
+		else if (s[i] == ')')
+			--s_count;
+
+		if (s_count < 0)
+		{
+			break;
+		}		
+	}
+	
+	return (s_count == 0) ? answer = true : answer = false;
+}
+
+int main()
+{
+	solution("()()"); // true
+	solution("(())()"); // true
+	solution(")()("); // false
+	solution("(()("); // false
 
 	return 0;
 }
