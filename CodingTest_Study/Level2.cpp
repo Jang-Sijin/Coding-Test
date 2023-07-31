@@ -430,29 +430,47 @@ int main()
 	return 0;
 }
 #elif PROB == 15
+// [네트워크]
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <bitset>
 using namespace std;
 
-void DFS(const int& n, vector<vector<int>>& computers, int& answer, int index)
+int solution(int n, vector<vector<int>> computers)
 {
-	
-	// 접근 방법을 어떻게??
-	for (int i = index; i < n; ++i)
+	vector<bitset<200>> graphs;
+
+	bool isFirst = true;
+	for (const auto& computer : computers)
 	{
-		if (computers[index][i] == 0)
-			answer++;			
+		string temp;
+		for (int node : computer)
+		{
+			temp += to_string(node);
+		}
+
+		auto b = bitset<200>(temp.c_str());
+
+		if (isFirst)
+		{
+			graphs.push_back(b);
+			isFirst = false;
+			continue;
+		}
+
+		for (const auto& bit : graphs)
+		{
+			//cout << (bit & b) << endl;
+			if ((bit & b) == bitset<200>(0))
+			{
+				graphs.push_back(b);
+				break;
+			}
+		}
 	}
 
-	if (index < n)
-	{
-		index += 1;
-		DFS(n, computers, answer, index++);
-	}		
-	else
-		return;
+	return  graphs.size();
 }
 
 int solution(int n, vector<vector<int>> computers) 
