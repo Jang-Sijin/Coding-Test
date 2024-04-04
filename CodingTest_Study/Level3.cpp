@@ -1,4 +1,4 @@
-#define PROB 10
+#define PROB 11
 
 // [DP]
 // 트리, 격자, 계단
@@ -312,4 +312,36 @@ int main()
     return 0;
 }
 
+#elif PROB 11
+#include <iostream>
+
+class MyClass
+{
+public:
+    MyClass()
+    {
+        std::cout << "생성자 입니다." << std::endl;
+    }
+    MyClass(MyClass& copy)
+    {
+        std::cout << "복사 생성자 입니다." << std::endl;
+    }
+};
+
+int main()
+{
+    std::cout << "A" << std::endl;
+    MyClass A();
+
+    std::cout << "B" << std::endl;
+    MyClass B;
+
+    std::cout << "C = B" << std::endl;
+    MyClass C = B;
+
+    std::cout << "D{ B }" << std::endl;
+    MyClass D{ B };
+
+    return 0;
+}
 #endif

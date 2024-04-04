@@ -1,4 +1,4 @@
-#define PROB 91
+#define PROB 93
 
 #if PROB == 1
 // {직사각형 별찍기]
@@ -3103,5 +3103,23 @@ int main()
 	solution("2020.01.01", {"Z 3", "D 5"}, {"2019.01.01 D", "2019.11.15 Z", "2019.08.02 D", "2019.07.01 D", "2018.12.28 Z"}); // result: {1, 4, 5}
 
 	return 0;
+}
+#elif PROB == 92
+// [잡은 물고기 중 가장 큰 물고기의 길이 구하기]
+
+SELECT CONCAT(MAX(LENGTH), 'cm') MAX_LENGTH
+FROM FISH_INFO
+WHERE LENGTH IS NOT NULL
+
+#elif PROB == 93
+// [추억 점수]
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(vector<string> name, vector<int> yearning, vector<vector<string>> photo) {
+	vector<int> answer;
+	return answer;
 }
 #endif
