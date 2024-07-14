@@ -24,6 +24,7 @@
     <ProjectGuid>{f0c9b092-1472-44ff-8e13-794b9ac18868}</ProjectGuid>
     <RootNamespace>CondingTestSolved</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>CodingTest_BaekJoon</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
